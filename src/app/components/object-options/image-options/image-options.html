@@ -1,0 +1,15 @@
+@if (selectedObject$ | async; as selectedObject) {
+  <div class="options-row">
+    <button class="options-button mx-1" [ngClass]="{ active: isCropMode }" (click)="onCrop()">
+      <i class="fa-solid fa-crop"></i>
+    </button>
+    @if (isCropMode) {
+      <button class="options-button mx-1" (click)="applyCrop()">
+        <i class="fa-solid fa-check"></i>
+      </button>
+      <button class="options-button mx-1" (click)="cancelCrop()">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    }
+  </div>
+}

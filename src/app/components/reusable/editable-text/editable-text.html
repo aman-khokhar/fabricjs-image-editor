@@ -1,0 +1,12 @@
+@if(currentState() == 'text') {
+<h5 (click)="onTextClick()">{{ value() }}</h5>
+} @if( currentState() == 'input') {
+<input
+  #inputControl
+  id="inputControl"
+  class="form-control"
+  [(ngModel)]="inputValue"
+  (blur)="onBlur()"
+  (keydown.enter)="onBlur()"
+/>
+}

@@ -1,0 +1,215 @@
+@if (selectedObject$ | async; as selectedObject) {
+  @if ($any(selectedObject).id.includes('crop')) {
+  } @else {
+    <div class="details-row">
+      <span class="row-text mx-1"><i class="fa-solid fa-rotate fa-sm"></i>:</span>
+      <input
+        selectAllOnFocus
+        name="angle"
+        type="number"
+        class="mx-1 input-control"
+        min="0"
+        [ngModel]="selectedObject.angle"
+        (ngModelChange)="setAngle($event, selectedObject)"
+      />
+      <div class="up-down-buttons">
+        <button class="input-button" (click)="onValueIncrease(selectedObject.angle, 'angle')">
+          <i class="fa-solid fa-chevron-up fa-sm"></i>
+        </button>
+        <button class="input-button" (click)="onValueDecrease(selectedObject.angle, 'angle')">
+          <i class="fa-solid fa-chevron-down fa-sm"></i>
+        </button>
+      </div>
+      @if (
+        selectedObject.type != 'line' &&
+        selectedObject.type != 'text' &&
+        selectedObject.type != 'textbox'
+      ) {
+        <span class="row-text mx-1"><i class="fa-solid fa-h fa-sm"></i>:</span>
+        <input
+          selectAllOnFocus
+          name="height"
+          type="number"
+          class="mx-1 input-control"
+          min="1"
+          [ngModel]="getHeight(selectedObject)"
+          (ngModelChange)="setHeight($event, selectedObject)"
+        />
+        <div class="up-down-buttons">
+          <button class="input-button"><i class="fa-solid fa-chevron-up fa-sm"></i></button>
+          <button class="input-button"><i class="fa-solid fa-chevron-down fa-sm"></i></button>
+        </div>
+        <span class="row-text mx-1"><i class="fa-solid fa-w fa-sm"></i>:</span>
+        <input
+          selectAllOnFocus
+          name="width"
+          type="number"
+          class="mx-1 input-control"
+          min="1"
+          [ngModel]="getWidth(selectedObject)"
+          (ngModelChange)="setWidth($event, selectedObject)"
+        />
+        <div class="up-down-buttons">
+          <button class="input-button"><i class="fa-solid fa-chevron-up fa-sm"></i></button>
+          <button class="input-button"><i class="fa-solid fa-chevron-down fa-sm"></i></button>
+        </div>
+      }
+      <span class="row-text mx-1"><i class="fa-solid fa-x fa-sm"></i>:</span>
+      <input
+        selectAllOnFocus
+        name="left"
+        type="number"
+        class="mx-1 input-control"
+        [ngModel]="getLeft(selectedObject)"
+        (ngModelChange)="setLeft($event, selectedObject)"
+      />
+      <div class="up-down-buttons">
+        <button class="input-button"><i class="fa-solid fa-chevron-up fa-sm"></i></button>
+        <button class="input-button"><i class="fa-solid fa-chevron-down fa-sm"></i></button>
+      </div>
+      <span class="row-text mx-1"><i class="fa-solid fa-y fa-sm"></i>:</span>
+      <input
+        selectAllOnFocus
+        name="top"
+        type="number"
+        class="mx-1 input-control"
+        [ngModel]="getTop(selectedObject)"
+        (ngModelChange)="setTop($event, selectedObject)"
+      />
+      <div class="up-down-buttons">
+        <button class="input-button"><i class="fa-solid fa-chevron-up fa-sm"></i></button>
+        <button class="input-button"><i class="fa-solid fa-chevron-down fa-sm"></i></button>
+      </div>
+      @if (isCircle(selectedObject)) {
+        <span class="row-text mx-1"><i class="fa-solid fa-r fa-sm"></i>:</span>
+        <input
+          selectAllOnFocus
+          name="radius"
+          type="number"
+          class="mx-1 input-control"
+          min="1"
+          [ngModel]="selectedObject.radius"
+          (ngModelChange)="onPropChange($event, 'radius')"
+        />
+        <div class="up-down-buttons">
+          <button class="input-button" (click)="onValueIncrease(selectedObject.radius, 'radius')">
+            <i class="fa-solid fa-chevron-up fa-sm"></i>
+          </button>
+          <button class="input-button" (click)="onValueDecrease(selectedObject.radius, 'radius')">
+            <i class="fa-solid fa-chevron-down fa-sm"></i>
+          </button>
+        </div>
+      }
+      @if (isEllipse(selectedObject)) {
+        <span class="row-text mx-1"><i class="fa-solid fa-r fa-sm"></i>x:</span>
+        <input
+          selectAllOnFocus
+          name="rx"
+          type="number"
+          class="mx-1 input-control"
+          min="1"
+          [ngModel]="selectedObject.rx"
+          (ngModelChange)="onPropChange($event, 'rx')"
+        />
+        <div class="up-down-buttons">
+          <button class="input-button" (click)="onValueIncrease(selectedObject.rx, 'rx')">
+            <i class="fa-solid fa-chevron-up fa-sm"></i>
+          </button>
+          <button class="input-button" (click)="onValueDecrease(selectedObject.rx, 'rx')">
+            <i class="fa-solid fa-chevron-down fa-sm"></i>
+          </button>
+        </div>
+        <span class="row-text mx-1"><i class="fa-solid fa-r fa-sm"></i>y:</span>
+        <input
+          selectAllOnFocus
+          name="ry"
+          type="number"
+          class="mx-1 input-control"
+          min="1"
+          [ngModel]="selectedObject.ry"
+          (ngModelChange)="onPropChange($event, 'ry')"
+        />
+        <div class="up-down-buttons">
+          <button class="input-button" (click)="onValueIncrease(selectedObject.ry, 'ry')">
+            <i class="fa-solid fa-chevron-up fa-sm"></i>
+          </button>
+          <button class="input-button" (click)="onValueDecrease(selectedObject.ry, 'ry')">
+            <i class="fa-solid fa-chevron-down fa-sm"></i>
+          </button>
+        </div>
+      }
+      <!-- TODO: Move Stroke stuff to a dropdown template for less messy look -->
+      @if (selectedObject.type != 'text' && selectedObject.type != 'textbox') {
+        <span class="row-text mx-2">Stroke width:</span>
+        <input
+          selectAllOnFocus
+          name="strokeWidth"
+          type="number"
+          class="mx-1 input-control"
+          min="0"
+          [ngModel]="selectedObject.strokeWidth"
+          (ngModelChange)="onPropChange($event, 'strokeWidth')"
+        />
+        <div class="up-down-buttons">
+          <button
+            class="input-button"
+            (click)="onValueIncrease(selectedObject.strokeWidth, 'strokeWidth')"
+          >
+            <i class="fa-solid fa-chevron-up fa-sm"></i>
+          </button>
+          <button
+            class="input-button"
+            (click)="onValueDecrease(selectedObject.strokeWidth, 'strokeWidth')"
+          >
+            <i class="fa-solid fa-chevron-down fa-sm"></i>
+          </button>
+        </div>
+        <!-- TODO: Add all types of stroke types e.g. no-fill, gradient, pattern -->
+        <span class="row-text mx-2">Stroke:</span>
+        <input
+          name="stroke"
+          type="color"
+          class="mx-1 color-control"
+          [ngModel]="selectedObject.stroke"
+          (ngModelChange)="onPropChange($event, 'stroke')"
+        />
+      }
+      @if (
+        selectedObject.type != 'line' &&
+        selectedObject.type != 'image' &&
+        selectedObject.type != 'text' &&
+        selectedObject.type != 'textbox'
+      ) {
+        <!-- TODO: Add all types of fill types e.g. no-fill, gradient, pattern -->
+        <span class="row-text mx-1">Fill:</span>
+        <input
+          name="fill"
+          type="color"
+          class="mx-1 color-control"
+          [ngModel]="getFill(selectedObject)"
+          (ngModelChange)="setFill($event, selectedObject)"
+        />
+        <!-- TODO: Add fill opacity either here or in Layers panel (more appropriate) in 0% to 100% input format -->
+        <!-- <input
+        name="transparent"
+        class="form-check-input"
+        type="checkbox"
+        [ngModel]="getTransparent(selectedObject)"
+        (ngModelChange)="setTransparent($event)"
+        id="transparentCheck"
+      />
+      <label class="form-check-label" for="transparentCheck"> Transparent </label> -->
+      }
+      <!-- TODO: Add dashed stroke here and move it to stroke template when that is done -->
+      <!-- <input
+      name="dashedStroke"
+      class="form-check-input"
+      type="checkbox"
+      [ngModel]="getDashedStroke(selectedObject)"
+      (ngModelChange)="setDashedStroke($event)"
+      id="dashedStrokeCheck"
+    />
+    <label class="form-check-label" for="dashedStrokeCheck"> Stroke dash </label> -->
+    </div>
+  }
+}

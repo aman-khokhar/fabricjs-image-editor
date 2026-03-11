@@ -1,0 +1,67 @@
+<div class="stack-container">
+  <div class="stack-header">Layers</div>
+  <div class="stack-body my-scroll">
+    @if (canvasObjects$ | async; as objs) {
+      <ul>
+        @for (object of objs.slice().reverse(); track $any(object).id) {
+          @if ($any(object).id !== 'playground-rect') {
+            @if (!$any(object).id.includes('crop')) {
+              <li
+                [dndDraggable]="$any(object).id"
+                [dndDropzone]
+                (dndDrop)="onDrop($event, $any(object).id)"
+                [ngClass]="
+                  (selectedObject$ | async)
+                    ? $any(selectedObject$ | async).id == $any(object).id
+                      ? 'active'
+                      : ''
+                    : ''
+                "
+              >
+                <div class="row m-0">
+                  <div class="col-2 p-0">
+                    @if (object.type == 'text' || object.type == 'textbox') {
+                      <i class="fa-solid fa-font"></i>
+                    } @else if (
+                      object.type == 'rect' ||
+                      object.type == 'circle' ||
+                      object.type == 'ellipse' ||
+                      object.type == 'triangle' ||
+                      object.type == 'line'
+                    ) {
+                      <i class="fa-solid fa-shapes"></i>
+                    } @else if (object.type == 'image') {
+                      <i class="fas fa-image"></i>
+                    }
+                  </div>
+                  <div class="col-8 p-0 text-center" (click)="onSelect($any(object).id, object)">
+                    <b>{{ object.name }}</b>
+                  </div>
+                  <div class="col-2 p-0">
+                    @if (object.lockMovementX && object.lockMovementY && !object.selectable) {
+                      <i (click)="onUnlock($any(object).id)" class="fa-solid fa-lock"></i>
+                    } @else {
+                      <i (click)="onLock($any(object).id)" class="fa-solid fa-lock-open"></i>
+                    }
+                  </div>
+                </div>
+              </li>
+            }
+          } @else {
+            <li>
+              <div class="row m-0">
+                <div class="col-2 p-0">
+                  <i class="fa-solid fa-square"></i>
+                </div>
+                <div class="col-8 p-0 text-center">
+                  <b>Background</b>
+                </div>
+                <div class="col-2 p-0"><i class="fa-solid fa-lock"></i></div>
+              </div>
+            </li>
+          }
+        }
+      </ul>
+    }
+  </div>
+</div>

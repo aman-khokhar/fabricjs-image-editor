@@ -1,0 +1,19 @@
+<div class="history-container">
+  <div class="history-header">History</div>
+  <div class="history-body my-scroll">
+    @if (undoStack$ | async; as undoStack) {
+      <ul>
+        @for (state of undoStack; track $index; let index = $index) {
+          <li [ngClass]="{ active: index == undoStack.length - 1 }">{{ state.name }}</li>
+        }
+      </ul>
+    }
+    @if (redoStack$ | async; as redoStack) {
+      <ul>
+        @for (state of redoStack.slice().reverse(); track $index) {
+          <li>{{ state.name }}</li>
+        }
+      </ul>
+    }
+  </div>
+</div>

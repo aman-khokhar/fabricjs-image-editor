@@ -1,0 +1,219 @@
+@if (selectedObject$ | async; as selectedObject) {
+  @if (isText(selectedObject)) {
+    <div class="options-row">
+      @if (selectionMode()) {
+        <button
+          class="options-button mx-1"
+          [ngClass]="{ active: fontWeight() == 'bold' }"
+          (click)="boldClick()"
+        >
+          <i class="fa-solid fa-bold"></i>
+        </button>
+        <button
+          class="options-button mx-1"
+          [ngClass]="{ active: fontStyle() == 'italic' }"
+          (click)="italicClick()"
+        >
+          <i class="fa-solid fa-italic"></i>
+        </button>
+        <button
+          class="options-button mx-1"
+          [ngClass]="{ active: underline() }"
+          (click)="underlineClick()"
+        >
+          <i class="fa-solid fa-underline"></i>
+        </button>
+        <button
+          class="options-button mx-1"
+          [ngClass]="{ active: overline() }"
+          (click)="overlineClick()"
+        >
+          <span style="text-decoration: overline"><b>O</b></span>
+        </button>
+        <button
+          class="options-button mx-1"
+          [ngClass]="{ active: linethrough() }"
+          (click)="lineThroughClick()"
+        >
+          <i class="fa-solid fa-strikethrough"></i>
+        </button>
+        <select class="mx-1" name="fontFamily" [(ngModel)]="fontFamily">
+          @for (font of loadedFonts(); track $index) {
+            <option [value]="font">{{ font }}</option>
+          }
+        </select>
+        <span class="row-text">Size:</span>
+        <input
+          selectAllOnFocus
+          name="fontSize"
+          type="number"
+          class="mx-1 input-control"
+          min="1"
+          [(ngModel)]="fontSize"
+        />
+        <div class="up-down-buttons">
+          <button class="input-button"><i class="fa-solid fa-chevron-up fa-sm"></i></button>
+          <button class="input-button"><i class="fa-solid fa-chevron-down fa-sm"></i></button>
+        </div>
+        <span class="row-text mx-2">Stroke width:</span>
+        <input
+          selectAllOnFocus
+          name="strokeWidth"
+          type="number"
+          class="mx-1 input-control"
+          min="0"
+          [(ngModel)]="strokeWidth"
+        />
+        <div class="up-down-buttons">
+          <button class="input-button"><i class="fa-solid fa-chevron-up fa-sm"></i></button>
+          <button class="input-button"><i class="fa-solid fa-chevron-down fa-sm"></i></button>
+        </div>
+        <span class="row-text mx-2">Stroke:</span>
+        <input name="stroke" type="color" class="mx-1 color-control" [(ngModel)]="stroke" />
+        <span class="row-text">Fill:</span>
+        <input name="fill" type="color" class="mx-1 color-control" [(ngModel)]="fill" />
+        <span class="row-text">Background:</span>
+        <input name="fill" type="color" class="mx-1 color-control" [(ngModel)]="backgroundColor" />
+        <span class="mx-3"></span>
+        <button class="options-button mx-1" (click)="applyStyles()">
+          <i class="fa-solid fa-check"></i>
+        </button>
+        <button class="options-button mx-1">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      } @else {
+        <button
+          class="options-button mx-1"
+          [ngClass]="{ active: selectedObject.fontWeight == 'bold' }"
+          (click)="boldClick()"
+        >
+          <i class="fa-solid fa-bold"></i>
+        </button>
+        <button
+          class="options-button mx-1"
+          [ngClass]="{ active: selectedObject.fontStyle == 'italic' }"
+          (click)="italicClick()"
+        >
+          <i class="fa-solid fa-italic"></i>
+        </button>
+        <button
+          class="options-button mx-1"
+          [ngClass]="{ active: selectedObject.underline }"
+          (click)="underlineClick()"
+        >
+          <i class="fa-solid fa-underline"></i>
+        </button>
+        <button
+          class="options-button mx-1"
+          [ngClass]="{ active: selectedObject.overline }"
+          (click)="overlineClick()"
+        >
+          <span style="text-decoration: overline"><b>O</b></span>
+        </button>
+        <button
+          class="options-button mx-1"
+          [ngClass]="{ active: selectedObject.linethrough }"
+          (click)="lineThroughClick()"
+        >
+          <i class="fa-solid fa-strikethrough"></i>
+        </button>
+        @if (selectedObject.type == 'textbox') {
+          <button
+            class="options-button mx-1"
+            [ngClass]="{ active: selectedObject.textAlign == 'left' }"
+            (click)="alignClick('left')"
+          >
+            <i class="fa-solid fa-align-left"></i>
+          </button>
+          <button
+            class="options-button mx-1"
+            [ngClass]="{ active: selectedObject.textAlign == 'center' }"
+            (click)="alignClick('center')"
+          >
+            <i class="fa-solid fa-align-center"></i>
+          </button>
+          <button
+            class="options-button mx-1"
+            [ngClass]="{ active: selectedObject.textAlign == 'right' }"
+            (click)="alignClick('right')"
+          >
+            <i class="fa-solid fa-align-right"></i>
+          </button>
+        }
+        <select
+          class="mx-1"
+          name="fontFamily"
+          [ngModel]="selectedObject.fontFamily"
+          (ngModelChange)="onPropChange($event, 'fontFamily')"
+        >
+          @for (font of loadedFonts(); track $index) {
+            <option [value]="font">{{ font }}</option>
+          }
+        </select>
+        <span class="row-text">Size:</span>
+        <input
+          selectAllOnFocus
+          name="fontSize"
+          type="number"
+          class="mx-1 input-control"
+          min="1"
+          [ngModel]="selectedObject.fontSize"
+          (ngModelChange)="onPropChange($event, 'fontSize')"
+        />
+        <div class="up-down-buttons">
+          <button class="input-button"><i class="fa-solid fa-chevron-up fa-sm"></i></button>
+          <button class="input-button"><i class="fa-solid fa-chevron-down fa-sm"></i></button>
+        </div>
+        <span class="row-text mx-2">Stroke width:</span>
+        <input
+          selectAllOnFocus
+          name="strokeWidth"
+          type="number"
+          class="mx-1 input-control"
+          min="0"
+          [ngModel]="selectedObject.strokeWidth"
+          (ngModelChange)="onPropChange($event, 'strokeWidth')"
+        />
+        <div class="up-down-buttons">
+          <button class="input-button"><i class="fa-solid fa-chevron-up fa-sm"></i></button>
+          <button class="input-button"><i class="fa-solid fa-chevron-down fa-sm"></i></button>
+        </div>
+        <span class="row-text mx-2">Stroke:</span>
+        <input
+          name="stroke"
+          type="color"
+          class="mx-1 color-control"
+          [ngModel]="selectedObject.stroke"
+          (ngModelChange)="onPropChange($event, 'stroke')"
+        />
+        <!-- TODO: Add all types of fill types e.g. no-fill, gradient, pattern -->
+        <!-- TODO: Add fill opacity either here or in Layers panel (more appropriate) -->
+        <span class="row-text">Fill:</span>
+        <input
+          name="fill"
+          type="color"
+          class="mx-1 color-control"
+          [ngModel]="selectedObject.fill"
+          (ngModelChange)="onPropChange($event, 'fill')"
+        />
+        <span class="row-text">Background:</span>
+        <input
+          name="fill"
+          type="color"
+          class="mx-1 color-control"
+          [ngModel]="selectedObject.backgroundColor"
+          (ngModelChange)="onPropChange($event, 'textBackgroundColor')"
+        />
+        <!-- TODO: Add background opactity in input format 0% -> 100% and ditch checkbox -->
+        <!-- <input
+          class="mx-1 form-check-input"
+          style="margin-top: 0.5em"
+          type="checkbox"
+          [ngModel]="transparentBackground"
+          id="transparentBackgroundCheck"
+        />
+        <span class="row-text" for="transparentBackgroundCheck"> Transparent Background </span> -->
+      }
+    </div>
+  }
+}

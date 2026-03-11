@@ -1,0 +1,90 @@
+<div>
+  @if(panel() == 'shape') {
+  <div>
+    <ul>
+      <li
+        class="p-1 border rounded mb-1"
+        draggable="true"
+        (dragstart)="onDragStart($event, { metaType: 'shape', type: 'rect', url: '' })"
+        (dragend)="onDragEnd($event)"
+      >
+        <i class="fa-solid fa-square"></i> Rectangle
+      </li>
+      <li
+        class="p-1 border rounded mb-1"
+        draggable="true"
+        (dragstart)="onDragStart($event, { metaType: 'shape', type: 'circle', url: '' })"
+        (dragend)="onDragEnd($event)"
+      >
+        <i class="fa-solid fa-circle"></i> Circle
+      </li>
+      <li
+        class="p-1 border rounded mb-1"
+        draggable="true"
+        (dragstart)="onDragStart($event, { metaType: 'shape', type: 'ellipse', url: '' })"
+        (dragend)="onDragEnd($event)"
+      >
+        ⬬ Ellipse
+      </li>
+      <li
+        class="p-1 border rounded mb-1"
+        draggable="true"
+        (dragstart)="onDragStart($event, { metaType: 'shape', type: 'triangle', url: '' })"
+        (dragend)="onDragEnd($event)"
+      >
+        <i class="fa-solid fa-caret-up"></i> Triangle
+      </li>
+      <li
+        class="p-1 border rounded mb-1"
+        draggable="true"
+        (dragstart)="onDragStart($event, { metaType: 'shape', type: 'line', url: '' })"
+        (dragend)="onDragEnd($event)"
+      >
+        <i class="fa-solid fa-minus"></i> Line
+      </li>
+    </ul>
+  </div>
+  } @else if(panel() == 'text') {
+  <div>
+    <ul>
+      <li
+        title="Text"
+        class="p-2 border rounded mb-2 text-center"
+        draggable="true"
+        (dragstart)="onDragStart($event, { metaType: 'text', type: 'text', url: '' })"
+        (dragend)="onDragEnd($event)"
+      >
+        Text
+      </li>
+      <li
+        title="Textbox"
+        class="p-2 border rounded text-center"
+        draggable="true"
+        (dragstart)="onDragStart($event, { metaType: 'text', type: 'textbox', url: '' })"
+        (dragend)="onDragEnd($event)"
+      >
+        Textbox
+      </li>
+    </ul>
+  </div>
+  } @else if (panel() == 'image') {
+  <div>
+    <ul>
+      <li
+        class="p-0 border rounded"
+        draggable="true"
+        (dragstart)="
+          onDragStart($event, {
+            metaType: 'image',
+            type: 'image',
+            url: 'https://placehold.co/250x100'
+          })
+        "
+        (dragend)="onDragEnd($event)"
+      >
+        <img src="https://placehold.co/250x100" width="75" height="50" alt="image" />
+      </li>
+    </ul>
+  </div>
+  }
+</div>

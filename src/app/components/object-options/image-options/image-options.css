@@ -1,0 +1,101 @@
+.options-row {
+  display: flex;
+  flex-direction: row;
+  padding-top: 0.1em;
+  padding-bottom: 0.1em;
+  color: #f0f0f0;
+}
+
+.options-button {
+  width: 2.5em;
+  height: 2.2em;
+  background-color: #656565;
+  border: 1px solid #606060;
+  font-size: 0.9em;
+  border-radius: 2px;
+  color: #f0f0f0;
+  padding: 0.1em 0.5em;
+  cursor: pointer;
+  outline: none;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.options-button:hover {
+  background-color: #808080;
+  border-color: #808080;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.options-button.active {
+  background-color: #555555;
+  border-color: #555555;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+select {
+  background-color: #656565;
+  color: #f0f0f0;
+  height: 2em;
+}
+
+.input-control {
+  background-color: #656565;
+  color: #f0f0f0;
+  height: 2em;
+  width: 4em;
+  border: 0;
+  padding-left: 0.4em;
+}
+
+.input-control:focus {
+  border: 0;
+  outline: none;
+}
+
+input[type='number']::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+.row-text {
+  padding-top: 0.2em;
+  font-size: 1.1em;
+  margin-left: 1px;
+}
+
+.color-control {
+  background-color: #656565;
+  margin: 0.3em 0 0.3em 0;
+  color: #f0f0f0;
+  height: 1.5em;
+  width: 1.5em;
+  border: 0;
+}
+
+.up-down-buttons {
+  display: flex;
+  flex-direction: column;
+  margin-left: -0.4em;
+}
+
+.input-button {
+  background-color: #656565;
+  border: 1px solid #505050;
+  font-size: 0.59em;
+  border-radius: 1px;
+  color: #f0f0f0;
+  cursor: pointer;
+  outline: none;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.input-button:hover {
+  background-color: #808080;
+  border-color: #808080;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}

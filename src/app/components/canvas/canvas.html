@@ -1,0 +1,24 @@
+@if (dragStatus()) {
+  <div class="drop-overlay" (dragover)="onDragOver($event)" (drop)="onDrop($event)"></div>
+}
+<div class="canvas-body">
+  <div class="options-container">
+    <app-details-panel />
+    <app-object-options />
+  </div>
+  <div #canvasContainer class="container-canvas">
+    <canvas #mainCanvas id="mainCanvas"></canvas>
+    <div class="menu-right">
+      <div class="history-menu">
+        <app-history-panel />
+      </div>
+      <div class="stack-order">
+        <app-stack-panel
+          (updateStackOrder)="moveToIndex($event.currentId, $event.targetId)"
+          (selectObject)="onSelectObject($event)"
+          (updateObjectLock)="onLockUnlock($event.id, $event.lock)"
+        />
+      </div>
+    </div>
+  </div>
+</div>

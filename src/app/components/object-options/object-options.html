@@ -1,0 +1,12 @@
+@if (selectedObject$ | async; as selectedObject) {
+  @if ($any(selectedObject).id.includes('crop')) {
+    <button class="m-1 p-1" (click)="imageService.applyCrop()">Apply</button>
+    <button class="m-1 p-1" (click)="imageService.cancelCrop()">Cancel</button>
+  } @else {
+    @if (selectedObject.type == 'text' || selectedObject.type == 'textbox') {
+      <app-text-options />
+    } @else if (selectedObject.type == 'image') {
+      <app-image-options />
+    }
+  }
+}

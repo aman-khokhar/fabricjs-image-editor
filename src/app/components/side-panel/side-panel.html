@@ -1,0 +1,63 @@
+<div>
+  <div class="row">
+    <div class="col-12 p-0" title="Pan">
+      <button
+        [ngClass]="{ active: currentTool() == 'pan' }"
+        class="side-button w-100"
+        (click)="onToolClick('pan')"
+      >
+        <i class="fas fa-hand"></i>
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12 p-0" title="Add Shape">
+      <button
+        #shapePopover="ngbPopover"
+        [ngClass]="{ active: currentTool() == 'shape' }"
+        class="side-button w-100"
+        (click)="onToolClick('shape')"
+        [ngbPopover]="inventoryComponent"
+        [autoClose]="false"
+        triggers="manual"
+      >
+        <i class="fas fa-shapes"></i>
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12 p-0" title="Add Text">
+      <button
+        #textPopover="ngbPopover"
+        [ngClass]="{ active: currentTool() == 'text' }"
+        class="side-button w-100"
+        (click)="onToolClick('text')"
+        [ngbPopover]="inventoryComponent"
+        [autoClose]="false"
+        triggers="manual"
+      >
+        <i class="fas fa-font"></i>
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12 p-0" title="Add Image">
+      <button
+        #imagePopover="ngbPopover"
+        [ngClass]="{ active: currentTool() == 'image' }"
+        class="side-button w-100"
+        (click)="onToolClick('image')"
+        [ngbPopover]="inventoryComponent"
+        [autoClose]="false"
+        triggers="manual"
+      >
+        <i class="fas fa-image"></i>
+      </button>
+    </div>
+  </div>
+</div>
+<ng-template #inventoryComponent>
+  <app-inventory-panel [panel]="currentTool()" />
+</ng-template>
+
+<!-- TODO: brush tool, erase tool, color picker, mask tool -->
