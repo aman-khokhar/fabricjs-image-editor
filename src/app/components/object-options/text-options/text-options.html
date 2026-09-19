@@ -1,5 +1,6 @@
 @if (selectedObject$ | async; as selectedObject) {
-  @if (isText(selectedObject)) {
+  <!-- @if (isText(selectedObject)) { -->
+  @if (selectedObject.type == 'text' || selectedObject.type == 'textbox') {
     <div class="options-row">
       @if (selectionMode()) {
         <button
@@ -84,35 +85,35 @@
       } @else {
         <button
           class="options-button mx-1"
-          [ngClass]="{ active: selectedObject.fontWeight == 'bold' }"
+          [ngClass]="{ active: $any(selectedObject).fontWeight == 'bold' }"
           (click)="boldClick()"
         >
           <i class="fa-solid fa-bold"></i>
         </button>
         <button
           class="options-button mx-1"
-          [ngClass]="{ active: selectedObject.fontStyle == 'italic' }"
+          [ngClass]="{ active: $any(selectedObject).fontStyle == 'italic' }"
           (click)="italicClick()"
         >
           <i class="fa-solid fa-italic"></i>
         </button>
         <button
           class="options-button mx-1"
-          [ngClass]="{ active: selectedObject.underline }"
+          [ngClass]="{ active: $any(selectedObject).underline }"
           (click)="underlineClick()"
         >
           <i class="fa-solid fa-underline"></i>
         </button>
         <button
           class="options-button mx-1"
-          [ngClass]="{ active: selectedObject.overline }"
+          [ngClass]="{ active: $any(selectedObject).overline }"
           (click)="overlineClick()"
         >
           <span style="text-decoration: overline"><b>O</b></span>
         </button>
         <button
           class="options-button mx-1"
-          [ngClass]="{ active: selectedObject.linethrough }"
+          [ngClass]="{ active: $any(selectedObject).linethrough }"
           (click)="lineThroughClick()"
         >
           <i class="fa-solid fa-strikethrough"></i>
@@ -120,21 +121,21 @@
         @if (selectedObject.type == 'textbox') {
           <button
             class="options-button mx-1"
-            [ngClass]="{ active: selectedObject.textAlign == 'left' }"
+            [ngClass]="{ active: $any(selectedObject).textAlign == 'left' }"
             (click)="alignClick('left')"
           >
             <i class="fa-solid fa-align-left"></i>
           </button>
           <button
             class="options-button mx-1"
-            [ngClass]="{ active: selectedObject.textAlign == 'center' }"
+            [ngClass]="{ active: $any(selectedObject).textAlign == 'center' }"
             (click)="alignClick('center')"
           >
             <i class="fa-solid fa-align-center"></i>
           </button>
           <button
             class="options-button mx-1"
-            [ngClass]="{ active: selectedObject.textAlign == 'right' }"
+            [ngClass]="{ active: $any(selectedObject).textAlign == 'right' }"
             (click)="alignClick('right')"
           >
             <i class="fa-solid fa-align-right"></i>
@@ -143,7 +144,7 @@
         <select
           class="mx-1"
           name="fontFamily"
-          [ngModel]="selectedObject.fontFamily"
+          [ngModel]="$any(selectedObject).fontFamily"
           (ngModelChange)="onPropChange($event, 'fontFamily')"
         >
           @for (font of loadedFonts(); track $index) {
@@ -157,7 +158,7 @@
           type="number"
           class="mx-1 input-control"
           min="1"
-          [ngModel]="selectedObject.fontSize"
+          [ngModel]="$any(selectedObject).fontSize"
           (ngModelChange)="onPropChange($event, 'fontSize')"
         />
         <div class="up-down-buttons">

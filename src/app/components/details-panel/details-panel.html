@@ -80,7 +80,8 @@
         <button class="input-button"><i class="fa-solid fa-chevron-up fa-sm"></i></button>
         <button class="input-button"><i class="fa-solid fa-chevron-down fa-sm"></i></button>
       </div>
-      @if (isCircle(selectedObject)) {
+      <!-- @if (isCircle(selectedObject)) { -->
+      @if (selectedObject.type == 'circle') {
         <span class="row-text mx-1"><i class="fa-solid fa-r fa-sm"></i>:</span>
         <input
           selectAllOnFocus
@@ -88,19 +89,26 @@
           type="number"
           class="mx-1 input-control"
           min="1"
-          [ngModel]="selectedObject.radius"
+          [ngModel]="$any(selectedObject).radius"
           (ngModelChange)="onPropChange($event, 'radius')"
         />
         <div class="up-down-buttons">
-          <button class="input-button" (click)="onValueIncrease(selectedObject.radius, 'radius')">
+          <button
+            class="input-button"
+            (click)="onValueIncrease($any(selectedObject).radius, 'radius')"
+          >
             <i class="fa-solid fa-chevron-up fa-sm"></i>
           </button>
-          <button class="input-button" (click)="onValueDecrease(selectedObject.radius, 'radius')">
+          <button
+            class="input-button"
+            (click)="onValueDecrease($any(selectedObject).radius, 'radius')"
+          >
             <i class="fa-solid fa-chevron-down fa-sm"></i>
           </button>
         </div>
       }
-      @if (isEllipse(selectedObject)) {
+      <!-- @if (isEllipse(selectedObject)) { -->
+      @if (selectedObject.type == 'ellipse') {
         <span class="row-text mx-1"><i class="fa-solid fa-r fa-sm"></i>x:</span>
         <input
           selectAllOnFocus
@@ -108,14 +116,14 @@
           type="number"
           class="mx-1 input-control"
           min="1"
-          [ngModel]="selectedObject.rx"
+          [ngModel]="$any(selectedObject).rx"
           (ngModelChange)="onPropChange($event, 'rx')"
         />
         <div class="up-down-buttons">
-          <button class="input-button" (click)="onValueIncrease(selectedObject.rx, 'rx')">
+          <button class="input-button" (click)="onValueIncrease($any(selectedObject).rx, 'rx')">
             <i class="fa-solid fa-chevron-up fa-sm"></i>
           </button>
-          <button class="input-button" (click)="onValueDecrease(selectedObject.rx, 'rx')">
+          <button class="input-button" (click)="onValueDecrease($any(selectedObject).rx, 'rx')">
             <i class="fa-solid fa-chevron-down fa-sm"></i>
           </button>
         </div>
@@ -126,14 +134,14 @@
           type="number"
           class="mx-1 input-control"
           min="1"
-          [ngModel]="selectedObject.ry"
+          [ngModel]="$any(selectedObject).ry"
           (ngModelChange)="onPropChange($event, 'ry')"
         />
         <div class="up-down-buttons">
-          <button class="input-button" (click)="onValueIncrease(selectedObject.ry, 'ry')">
+          <button class="input-button" (click)="onValueIncrease($any(selectedObject).ry, 'ry')">
             <i class="fa-solid fa-chevron-up fa-sm"></i>
           </button>
-          <button class="input-button" (click)="onValueDecrease(selectedObject.ry, 'ry')">
+          <button class="input-button" (click)="onValueDecrease($any(selectedObject).ry, 'ry')">
             <i class="fa-solid fa-chevron-down fa-sm"></i>
           </button>
         </div>

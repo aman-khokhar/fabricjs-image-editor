@@ -26,9 +26,7 @@
               "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
               "src/styles.css"
             ],
-            "polyfills": [
-              "@angular/localize/init"
-            ]
+            "polyfills": ["@angular/localize/init"]
           },
           "configurations": {
             "production": {
@@ -79,12 +77,28 @@
                 "input": "public"
               }
             ],
-            "styles": [
-              "src/styles.css"
-            ],
-            "polyfills": [
-              "@angular/localize/init"
-            ]
+            "styles": ["src/styles.css"],
+            "polyfills": ["@angular/localize/init"]
+          }
+        },
+        "storybook": {
+          "builder": "@storybook/angular:start-storybook",
+          "options": {
+            "experimentalZoneless": true,
+            "configDir": ".storybook",
+            "browserTarget": "fabricjs_image_editor:build",
+            "compodoc": false,
+            "port": 6006
+          }
+        },
+        "build-storybook": {
+          "builder": "@storybook/angular:build-storybook",
+          "options": {
+            "experimentalZoneless": true,
+            "configDir": ".storybook",
+            "browserTarget": "fabricjs_image_editor:build",
+            "compodoc": false,
+            "outputDir": "storybook-static"
           }
         }
       }
