@@ -366,14 +366,14 @@ export class Canvas implements AfterViewInit, OnDestroy {
 
     this.mainCanvas.on('object:moving', (e) => {
       let object = <fabric.Object>e.target;
-      if ((<any>object).id.includes('crop') && object instanceof fabric.Rect) {
+      if ((<any>object).id && (<any>object).id.includes('crop') && object instanceof fabric.Rect) {
         this.handleCropboxMove(object);
       }
     });
 
     this.mainCanvas.on('object:scaling', (e) => {
       let object = <fabric.Object>e.target;
-      if ((<any>object).id.includes('crop') && object instanceof fabric.Rect) {
+      if ((<any>object).id && (<any>object).id.includes('crop') && object instanceof fabric.Rect) {
         this.handleCropboxScaling(object);
       }
     });
