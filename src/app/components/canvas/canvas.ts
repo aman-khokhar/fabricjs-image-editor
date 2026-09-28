@@ -366,12 +366,16 @@ export class Canvas implements AfterViewInit, OnDestroy {
 
     this.mainCanvas.on('object:moving', (e) => {
       let object = <fabric.Object>e.target;
-      this.handleCropboxMove(object);
+      if ((<any>object).id.includes('crop') && object instanceof fabric.Rect) {
+        this.handleCropboxMove(object);
+      }
     });
 
     this.mainCanvas.on('object:scaling', (e) => {
       let object = <fabric.Object>e.target;
-      this.handleCropboxScaling(object);
+      if ((<any>object).id.includes('crop') && object instanceof fabric.Rect) {
+        this.handleCropboxScaling(object);
+      }
     });
 
     this.mainCanvas.off('mouse:down');
@@ -415,6 +419,7 @@ export class Canvas implements AfterViewInit, OnDestroy {
   }
 
   handleCropboxScaling(cropbox: fabric.Object) {
+    if (!(<any>cropbox).id) return;
     if ((<any>cropbox).id.includes('crop') && cropbox instanceof fabric.Rect) {
       let image = <fabric.Image>(
         this.mainCanvas.getObjects().find((obj) => (<any>obj).id == 'crop-image')
@@ -441,6 +446,8 @@ export class Canvas implements AfterViewInit, OnDestroy {
   }
 
   handleCropboxMove(cropbox: fabric.Object) {
+    console.log('hi');
+    if (!(<any>cropbox).id) return;
     if ((<any>cropbox).id.includes('crop') && cropbox instanceof fabric.Rect) {
       let image = <fabric.Image>(
         this.mainCanvas.getObjects().find((obj) => (<any>obj).id == 'crop-image')

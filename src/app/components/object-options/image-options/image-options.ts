@@ -32,4 +32,9 @@ export class ImageOptions {
     this.isCropMode = false;
     this.imageService.cancelCrop();
   }
+
+  deleteCrop() {
+    this.isCropMode = false;
+    this.imageService.deleteCrop();
+  }
 }

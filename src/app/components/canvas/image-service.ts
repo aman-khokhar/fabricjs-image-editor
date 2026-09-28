@@ -141,6 +141,18 @@ export class ImageService {
     this._isCropMode.set(false);
   }
 
+  deleteCrop() {
+    if (!this.selObject) return;
+    this.canvasService.playgroundRect$.pipe(take(1)).subscribe((rect) => {
+      (<fabric.Object>this.selObject).clipPath = <fabric.Rect>rect;
+    });
+    this.removeCropObjects();
+    this.selObject.visible = true;
+    this.selObject.canvas?.discardActiveObject();
+    this.selObject.canvas?.requestRenderAll();
+    this._isCropMode.set(false);
+  }
+
   isAlreadyCropped() {
     if (!this.selObject) return;
     if ((<any>this.selObject.clipPath).id == 'crop-rect') return true;
